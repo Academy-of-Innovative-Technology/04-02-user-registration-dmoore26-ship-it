@@ -1,7 +1,7 @@
 document.querySelector(".btn-primary").addEventListener("click", function (event) {
   event.preventDefault();
 
-  // Get form values
+
   const firstName = document.querySelector("#firstName").value;
   const lastName = document.querySelector("#lastName").value;
   const email = document.querySelector("#email").value;
@@ -14,7 +14,7 @@ document.querySelector(".btn-primary").addEventListener("click", function (event
 
   const about = document.querySelector("#about").value;
 
-  // Create user object
+
   const user = {
     firstName: firstName,
     lastName: lastName,
@@ -25,17 +25,16 @@ document.querySelector(".btn-primary").addEventListener("click", function (event
     about: about
   };
 
-  // Save to localStorage (FIXED KEY NAME)
+  
   localStorage.setItem("registeredUser", JSON.stringify(user));
 
   console.log("User saved:", user);
 
-  // Display immediately after saving
   displayUser(user);
 });
 
 
-// Load saved user when page loads
+
 window.onload = function () {
 
   const savedString = localStorage.getItem("registeredUser");
@@ -52,7 +51,7 @@ window.onload = function () {
 };
 
 
-// Function to display saved data in spans
+
 function displayUser(user) {
 
   document.querySelector("#savedFirstName").textContent = user.firstName;
