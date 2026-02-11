@@ -35,7 +35,6 @@ document.querySelector(".btn-primary").addEventListener("click", function (event
 
 
 
-window.onload = function () {
 
   const savedString = localStorage.getItem("registeredUser");
 
@@ -48,7 +47,7 @@ window.onload = function () {
   } else {
     console.log("No saved user data found.");
   }
-};
+
 
 
 
