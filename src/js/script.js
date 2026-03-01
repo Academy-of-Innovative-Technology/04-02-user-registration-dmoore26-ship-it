@@ -1,31 +1,31 @@
 
-const form = document.querySelector("#registrationForm");
+let form = document.querySelector("#registrationForm");
 
-const savedFirstName = document.querySelector("#savedFirstName");
-const savedLastName = document.querySelector("#savedLastName");
-const savedEmail = document.querySelector("#savedEmail");
-const savedCountry = document.querySelector("#savedCountry");
-const savedAccountType = document.querySelector("#savedAccountType");
-const savedAbout = document.querySelector("#savedAbout");
+let savedFirstName = document.querySelector("#savedFirstName");
+let savedLastName = document.querySelector("#savedLastName");
+let savedEmail = document.querySelector("#savedEmail");
+let savedCountry = document.querySelector("#savedCountry");
+let savedAccountType = document.querySelector("#savedAccountType");
+let savedAbout = document.querySelector("#savedAbout");
 
-const savedUserPanel = document.querySelector("#savedUserPanel");
-const noSavedUser = document.querySelector("#noSavedUser");
+let savedUserPanel = document.querySelector("#savedUserPanel");
+let noSavedUser = document.querySelector("#noSavedUser");
 
 form.addEventListener("submit", function (event) {
   event.preventDefault(); 
 
-  const firstName = document.querySelector("#firstName").value;
-  const lastName = document.querySelector("#lastName").value;
-  const email = document.querySelector("#email").value;
-  const password = document.querySelector("#password").value;
-  const country = document.querySelector("#country").value;
+ let firstName = document.querySelector("#firstName").value;
+ let lastName = document.querySelector("#lastName").value;
+ let email = document.querySelector("#email").value;
+ let password = document.querySelector("#password").value;
+ let country = document.querySelector("#country").value;
 
-  const selectedRadio = document.querySelector('input[name="accountType"]:checked');
-  const accountType = selectedRadio ? selectedRadio.value : "";
+ let selectedRadio = document.querySelector('input[name="accountType"]:checked');
+let accountType = selectedRadio ? selectedRadio.value : "";
 
-  const about = document.querySelector("#about").value;
+  let about = document.querySelector("#about").value;
 
-  const user = {
+ let user = {
     firstName: firstName,
     lastName: lastName,
     email: email,
@@ -42,10 +42,10 @@ form.addEventListener("submit", function (event) {
 });
 
 function loadUser() {
-  const savedData = localStorage.getItem("registeredUser");
+  letsavedData = localStorage.getItem("registeredUser");
 
   if (savedData) {
-    const parsedUser = JSON.parse(savedData);
+   let parsedUser = JSON.parse(savedData);
     displayUser(parsedUser);
   } else {
     savedUserPanel.classList.add("d-none");
