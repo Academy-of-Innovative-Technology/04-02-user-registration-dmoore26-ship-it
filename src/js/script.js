@@ -1,15 +1,28 @@
-document.querySelector(".btn-primary").addEventListener("click", function (event) {
-  event.preventDefault();
+
+const form = document.querySelector("#registrationForm");
+
+const savedFirstName = document.querySelector("#savedFirstName");
+const savedLastName = document.querySelector("#savedLastName");
+const savedEmail = document.querySelector("#savedEmail");
+const savedCountry = document.querySelector("#savedCountry");
+const savedAccountType = document.querySelector("#savedAccountType");
+const savedAbout = document.querySelector("#savedAbout");
+
+const savedUserPanel = document.querySelector("#savedUserPanel");
+const noSavedUser = document.querySelector("#noSavedUser");
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault(); 
 
   const firstName = document.querySelector("#firstName").value;
   const lastName = document.querySelector("#lastName").value;
   const email = document.querySelector("#email").value;
   const password = document.querySelector("#password").value;
   const country = document.querySelector("#country").value;
-  
-  const selectedAccount = document.querySelector('input[name="accountType"]:checked');
-  const accountType = selectedAccount ? selectedAccount.value : "";
-  
+
+  const selectedRadio = document.querySelector('input[name="accountType"]:checked');
+  const accountType = selectedRadio ? selectedRadio.value : "";
+
   const about = document.querySelector("#about").value;
 
   const user = {
@@ -22,57 +35,48 @@ document.querySelector(".btn-primary").addEventListener("click", function (event
     about: about
   };
 
-
-  localStorage.setItem("savedUser", JSON.stringify(user));
-
+  localStorage.setItem("registeredUser", JSON.stringify(user));
 
   displayUser(user);
 
-
   alert("Registration Saved!");
-
-  console.log("User saved:", user);
 });
-
-function displayUser(user) {
-  document.querySelector("#savedFirstName").textContent = user.firstName;
-  document.querySelector("#savedLastName").textContent = user.lastName;
-  document.querySelector("#savedEmail").textContent = user.email;
-  document.querySelector("#savedCountry").textContent = user.country;
-  document.querySelector("#savedAccountType").textContent = user.accountType;
-  document.querySelector("#savedAbout").textContent = user.about;
-
-
-  document.querySelector("#savedSection").style.display = "block";
-}
-
 function loadUser() {
-  const savedData = localStorage.getItem("savedUser");
+  const savedData = localStorage.getItem("registeredUser");
 
   if (savedData) {
     const parsedUser = JSON.parse(savedData);
     displayUser(parsedUser);
+  } else {
+    savedUserPanel.classList.add("d-none");
+    noSavedUser.classList.remove("d-none");
   }
 }
 
+function displayUser(user) {
+  savedFirstName.textContent = user.firstName;
+  savedLastName.textContent = user.lastName;
+  savedEmail.textContent = user.email;
+  savedCountry.textContent = user.country;
+  savedAccountType.textContent = user.accountType;
+  savedAbout.textContent = user.about;
 
-document.addEventListener("DOMContentLoaded", loadUser);
-
-
+  savedUserPanel.classList.remove("d-none");
+  noSavedUser.classList.add("d-none");
+}
 document.querySelector("#clearUserBtn").addEventListener("click", function () {
+  localStorage.removeItem("registeredUser");
 
-  localStorage.removeItem("savedUser");
+  savedFirstName.textContent = "-";
+  savedLastName.textContent = "-";
+  savedEmail.textContent = "-";
+  savedCountry.textContent = "-";
+  savedAccountType.textContent = "-";
+  savedAbout.textContent = "-";
 
-
-  document.querySelector("#savedFirstName").textContent = "";
-  document.querySelector("#savedLastName").textContent = "";
-  document.querySelector("#savedEmail").textContent = "";
-  document.querySelector("#savedCountry").textContent = "";
-  document.querySelector("#savedAccountType").textContent = "";
-  document.querySelector("#savedAbout").textContent = "";
-
-
-  document.querySelector("#savedSection").style.display = "none";
-
-  console.log("User data cleared");
+  savedUserPanel.classList.add("d-none");
+  noSavedUser.classList.remove("d-none");
 });
+
+// Load on page start
+document.addEventListener("DOMContentLoaded", loadUser);
