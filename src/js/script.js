@@ -34,13 +34,13 @@ form.addEventListener("submit", function (event) {
     accountType: accountType,
     about: about
   };
-
   localStorage.setItem("registeredUser", JSON.stringify(user));
 
   displayUser(user);
 
   alert("Registration Saved!");
 });
+
 function loadUser() {
   const savedData = localStorage.getItem("registeredUser");
 
@@ -64,6 +64,7 @@ function displayUser(user) {
   savedUserPanel.classList.remove("d-none");
   noSavedUser.classList.add("d-none");
 }
+
 document.querySelector("#clearUserBtn").addEventListener("click", function () {
   localStorage.removeItem("registeredUser");
 
@@ -78,5 +79,4 @@ document.querySelector("#clearUserBtn").addEventListener("click", function () {
   noSavedUser.classList.remove("d-none");
 });
 
-// Load on page start
 document.addEventListener("DOMContentLoaded", loadUser);
