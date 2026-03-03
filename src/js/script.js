@@ -1,82 +1,75 @@
-
 let form = document.querySelector("#registrationForm");
 
-let savedFirstName = document.querySelector("#savedFirstName");
-let savedLastName = document.querySelector("#savedLastName");
-let savedEmail = document.querySelector("#savedEmail");
-let savedCountry = document.querySelector("#savedCountry");
-let savedAccountType = document.querySelector("#savedAccountType");
-let savedAbout = document.querySelector("#savedAbout");
+form.addEventListener("submit", function (e) {
 
-let savedUserPanel = document.querySelector("#savedUserPanel");
-let noSavedUser = document.querySelector("#noSavedUser");
+  e.preventDefault(); // stop page refresh
 
-form.addEventListener("submit", function (event) {
-  event.preventDefault(); 
+  let first = document.querySelector("#firstName").value;
+  let last = document.querySelector("#lastName").value;
+  let EEmail = document.querySelector("#email").value;
+  let PPassword = document.querySelector("#password").value;
+  let countryYY = document.querySelector("#country").value;
+  let aboutG = document.querySelector("#about").value;
+  
+  let acc = "";
+  let radio = document.querySelector('input[name="accountType"]:checked');
+  if (radio) {
+    acc = radio.value;
+  }
 
- let firstName = document.querySelector("#firstName").value;
- let lastName = document.querySelector("#lastName").value;
- let email = document.querySelector("#email").value;
- let password = document.querySelector("#password").value;
- let country = document.querySelector("#country").value;
-
- let selectedRadio = document.querySelector('input[name="accountType"]:checked');
-let accountType = selectedRadio ? selectedRadio.value : "";
-
-  let about = document.querySelector("#about").value;
-
- let user = {
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    password: password,
-    country: country,
-    accountType: accountType,
-    about: about
+  let user = {
+    firstName: first,
+    lastName: last,
+    email: EEmail,
+    password: PPassword,
+    country: countryYY,
+    accountType: acc,
+    about: aboutG
   };
+
+ 
   localStorage.setItem("registeredUser", JSON.stringify(user));
 
+ 
   displayUser(user);
 
-  alert("Registration Saved!");
+  alert("Saved!");
 });
 
-function loadUser() {
-  letsavedData = localStorage.getItem("registeredUser");
-
-  if (savedData) {
-   let parsedUser = JSON.parse(savedData);
-    displayUser(parsedUser);
-  } else {
-    savedUserPanel.classList.add("d-none");
-    noSavedUser.classList.remove("d-none");
-  }
-}
 
 function displayUser(user) {
-  savedFirstName.textContent = user.firstName;
-  savedLastName.textContent = user.lastName;
-  savedEmail.textContent = user.email;
-  savedCountry.textContent = user.country;
-  savedAccountType.textContent = user.accountType;
-  savedAbout.textContent = user.about;
 
-  savedUserPanel.classList.remove("d-none");
-  noSavedUser.classList.add("d-none");
+  document.querySelector("#savedFirstName").textContent = user.firstName;
+  document.querySelector("#savedLastName").textContent = user.lastName;
+  document.querySelector("#savedEmail").textContent = user.email;
+  document.querySelector("#savedCountry").textContent = user.country;
+  document.querySelector("#savedAccountType").textContent = user.accountType;
+  document.querySelector("#savedAbout").textContent = user.about;
+
+  document.querySelector("#savedUserPanel").classList.remove("d-none");
+  document.querySelector("#noSavedUser").classList.add("d-none");
 }
 
-document.querySelector("#clearUserBtn").addEventListener("click", function () {
-  localStorage.removeItem("registeredUser");
 
-  savedFirstName.textContent = "-";
-  savedLastName.textContent = "-";
-  savedEmail.textContent = "-";
-  savedCountry.textContent = "-";
-  savedAccountType.textContent = "-";
-  savedAbout.textContent = "-";
+document.addEventListener("DOMContentLoaded", function () {
 
-  savedUserPanel.classList.add("d-none");
-  noSavedUser.classList.remove("d-none");
+  let data = localStorage.getItem("registeredUser");
+
+  if (data) {
+    let user = JSON.parse(data);
+    displayUser(user);
+  } else {
+    document.querySelector("#savedUserPanel").classList.add("d-none");
+    document.querySelector("#noSavedUser").classList.remove("d-none");
+  }
 });
 
-document.addEventListener("DOMContentLoaded", loadUser);
+
+document.querySelector("#UserBtn").addEventListener("click", function () {
+
+  localStorage.removeItem("registeredUser");
+
+  document.querySelector("#savedUserPanel").classList.add("d-none");
+  document.querySelector("#noSavedUser").classList.remove("d-none");
+
+});
