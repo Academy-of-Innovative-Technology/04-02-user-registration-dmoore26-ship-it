@@ -2,7 +2,7 @@ let form = document.querySelector("#registrationForm");
 
 form.addEventListener("submit", function (e) {
 
-  e.preventDefault(); // stop page refresh
+  e.preventDefault();
 
   let first = document.querySelector("#firstName").value;
   let last = document.querySelector("#lastName").value;
